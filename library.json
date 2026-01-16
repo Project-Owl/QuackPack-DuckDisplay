@@ -1,7 +1,7 @@
 {
-  "name": "QuackPack-DuckGPS",
+  "name": "QuackPack-DuckDisplay",
   "version": "1.0.0",
-  "description": "GPS utility library for ClusterDuck Protocol",
+  "description": "Display utility library for ClusterDuck Protocol",
   "keywords": [
     "iot",
     "lora",
