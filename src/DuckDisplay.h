@@ -1,4 +1,6 @@
 #pragma once
+#ifndef DUCKDISPLAY_H
+#define DUCKDISPLAY_H
 #include <cstdint>
 #include <Wire.h>
 
@@ -17,3 +19,4 @@ protected:
 private:
     Display display(width, height, &Wire, -1);
 };
+#endif
