@@ -35,8 +35,8 @@
       "version": "https://github.com/ClusterDuck-Protocol/ClusterDuck-Protocol/archive/refs/tags/5.0.0.zip"
     },
     {
-      "name": "Adafruit BusIO",
-      "version": "^1.7.3"
+      "name": "Adafruit SSD1306",
+      "version": "^2.5.7"
     }
   ],
   "export": {

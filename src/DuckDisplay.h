@@ -1,10 +1,19 @@
-class DuckDisplay {
-protected:
-    size_t width, height;
-public:
-    DuckDisplay();
-    void showDefaultScreen();
-    size_t getWidth() {return width;}
-    size_t getHeight() {return height;}
+#pragma once
+#include <cstdint>
+#include <Wire.h>
 
-}
+template <class  Display>
+class DuckDisplay {
+public:
+    DuckDisplay() : width(128), height(64) {
+
+    };
+    void showDefaultScreen();
+
+    std::uint8_t getWidth() const {return width;}
+    std::uint8_t getHeight() const {return height;}
+protected:
+    std::uint8_t width, height;
+private:
+    Display display(width, height, &Wire, -1);
+};
