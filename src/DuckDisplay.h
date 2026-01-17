@@ -1,9 +1,9 @@
 #pragma once
 #ifndef DUCKDISPLAY_H
 #define DUCKDISPLAY_H
-#include <cstdint>
 #include <Adafruit_SSD1306.h>
 #include <Wire.h>
+#include "utils/DuckLogger.h"
 
 template <class  Display = Adafruit_SSD1306>
 class DuckDisplay {
@@ -16,14 +16,29 @@ public:
         Wire.begin(sda, scl);
         display = Display(width, height, &Wire, -1);
     }
-    DuckDisplay(int width, int height, int sda, int scl) : width(width), height(height), sda(sda), scl(scl) {
+    DuckDisplay(int width, int height, int sda, int scl, int rst_pin = -1) : width(width), height(height), sda(sda), scl(scl) {
         Wire.begin(sda, scl);
-        display = Display(width, height, &Wire, -1);
+        display = Display(width, height, &Wire, rst_pin);
     }
     void showDefaultScreen();
+    void begin() {
+        if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+            logdbg_ln("SSD1306 allocation failed");
+        }
+        showDefaultScreen();
+    }
+    void clear() {
+        display.clearDisplay();
+    }
+    void sleep() {
+        display.ssd1306_command(SSD1306_DISPLAYOFF);
+    }
+    void wake() {
+        display.ssd1306_command(SSD1306_DISPLAYON);
+    }
 
-    std::uint8_t getWidth() const {return width;}
-    std::uint8_t getHeight() const {return height;}
+    [[nodiscard]] std::uint8_t getWidth() const {return width;}
+    [[nodiscard]] std::uint8_t getHeight() const {return height;}
 protected:
     std::uint8_t width, height;
 private:
