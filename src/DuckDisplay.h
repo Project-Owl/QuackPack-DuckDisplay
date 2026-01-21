@@ -8,10 +8,10 @@
 template <class  Display = Adafruit_SSD1306>
 class DuckDisplay {
 public:
-    DuckDisplay() : width(128), height(64), sda(21), scl(22) {
+    DuckDisplay():width(128), height(64), sda(21), scl(22) {
         Wire.begin(sda, scl);
         display = Display(width, height, &Wire, -1);
-    };
+    }
     DuckDisplay(int width, int height) : width(width), height(height), sda(21), scl(22) {
         Wire.begin(sda, scl);
         display = Display(width, height, &Wire, -1);
@@ -20,20 +20,21 @@ public:
         Wire.begin(sda, scl);
         display = Display(width, height, &Wire, rst_pin);
     }
-    void showDefaultScreen();
-    void begin() {
+    virtual ~DuckDisplay() = default;
+    virtual void showDefaultScreen();
+    virtual void begin() {
         if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
             logdbg_ln("SSD1306 allocation failed");
         }
         showDefaultScreen();
     }
-    void clear() {
+    virtual void clear() {
         display.clearDisplay();
     }
-    void sleep() {
+    virtual void sleep() {
         display.ssd1306_command(SSD1306_DISPLAYOFF);
     }
-    void wake() {
+    virtual void wake() {
         display.ssd1306_command(SSD1306_DISPLAYON);
     }
 
