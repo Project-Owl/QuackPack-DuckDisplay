@@ -13,6 +13,21 @@ public:
         display.setCursor(0, 10);
         display.println("MamaDuck Device");
         display.println("Initializing...");
+        display.sendBuffer();
         display.display();
+    }
+    void clear() override {
+        display.clearDisplay();
+    }
+    void begin() override {
+        display = U8G2();
+        display.begin();
+        showDefaultScreen();
+    }
+    void sleep() override {
+        display.setPowerSave(1);
+    }
+    void wake() override {
+        display.setPowerSave(0);
     }
 };

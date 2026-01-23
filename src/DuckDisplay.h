@@ -21,6 +21,12 @@ public:
         DuckDisplay<Display>::begin();
     }
     virtual ~DuckDisplay() = default;
+
+    /**
+     * @param none
+     * @return void
+     * @brief Displays the default screen on the OLED display
+     */
     virtual void showDefaultScreen()    {
         display.clearDisplay();
         display.setTextSize(1);
@@ -30,6 +36,12 @@ public:
         display.println("Initializing...");
         display.display();
     }
+    /**
+     * @param none
+     * @return void
+     * @brief Initializes the OLED display. override to customize initialization. Will call showDefaultScreen after
+     * initialization, so you must override that method if using a different display library.
+     */
     virtual void begin() {
         if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
             logdbg_ln("SSD1306 allocation failed");
@@ -38,18 +50,39 @@ public:
         display = Display(width, height, &Wire, rst_pin);
         showDefaultScreen();
     }
+    /**
+     * @param none
+     * @return void
+     * @brief Clears the display
+     */
     virtual void clear() {
         display.clearDisplay();
     }
+    /**
+     * @param none
+     * @return void
+     * @brief Puts the display to sleep. Requires wake() to turn back on, as well as rst_pin to be set.
+     */
     virtual void sleep() {
         display.ssd1306_command(SSD1306_DISPLAYOFF);
     }
+    /**
+     * @param none
+     * @return void
+     * @brief Wakes the display from sleep
+     */
     virtual void wake() {
         display.ssd1306_command(SSD1306_DISPLAYON);
     }
 
     [[nodiscard]] std::uint8_t getWidth() const {return width;}
     [[nodiscard]] std::uint8_t getHeight() const {return height;}
+    /**
+     * @param none
+     * @return Display&
+     * @brief Returns a reference to the display object for direct manipulation
+     */
+    Display& getDisplay() {return display;}
 protected:
     std::uint8_t width, height;
     int sda, scl, rst_pin;
