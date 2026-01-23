@@ -4,6 +4,8 @@
 #include <Adafruit_SSD1306.h>
 #include <Wire.h>
 #include "utils/DuckLogger.h"
+#include "Ducks/DuckTypes.h"
+#include "include/cdpcfg.h"
 
 template <class  Display = Adafruit_SSD1306>
 class DuckDisplay {
@@ -37,14 +39,15 @@ public:
         display.display();
     }
     /**
-     * @param none
+     * @param i2c_addr
      * @return void
      * @brief Initializes the OLED display. override to customize initialization. Will call showDefaultScreen after
      * initialization, so you must override that method if using a different display library.
      */
-    virtual void begin() {
-        if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    virtual void begin(uint8_t i2c_addr) {
+        if(!display.begin(SSD1306_SWITCHCAPVCC, i2c_addr)) {
             logdbg_ln("SSD1306 allocation failed");
+            return;
         }
 
         display = Display(width, height, &Wire, rst_pin);
@@ -83,9 +86,34 @@ public:
      * @brief Returns a reference to the display object for direct manipulation
      */
     Display& getDisplay() {return display;}
+    /**
+     * @param duckType
+     * @return std::string
+     * @brief Converts a duck type integer to a human-readable string
+     */
+    static std::string duckTypeToString(int duckType) {
+        std::string duckTypeStr;
+        switch (duckType) {
+            case DuckType::PAPA:
+                duckTypeStr = "Papa";
+                break;
+            case DuckType::LINK:
+                duckTypeStr = "Link";
+                break;
+            case DuckType::DETECTOR:
+                duckTypeStr = "Detector";
+                break;
+            case DuckType::MAMA:
+                duckTypeStr = "Mama";
+                break;
+            default:
+                duckTypeStr = "Duck";
+        }
+        return duckTypeStr;
+    }
 protected:
     std::uint8_t width, height;
-    int sda, scl, rst_pin;
+    int sda, scl, rst_pin, duckType;
     Display display;
 };
 #endif
