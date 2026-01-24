@@ -10,17 +10,17 @@
 template <class  Display = Adafruit_SSD1306>
 class DuckDisplay {
 public:
-    DuckDisplay():width(128), height(64), sda(21), scl(22), rst_pin(-1) {
+    DuckDisplay<Display>():width(128), height(64), sda(21), scl(22), rst_pin(-1) {
         Wire.begin(sda, scl);
-        DuckDisplay<Display>::begin();
+        DuckDisplay<Display>::begin(0x3C);
     }
     DuckDisplay(int width, int height) : width(width), height(height), sda(21), scl(22), rst_pin(-1) {
         Wire.begin(sda, scl);
-        DuckDisplay<Display>::begin();
+        DuckDisplay<Display>::begin(0x3C);
     }
     DuckDisplay(int width, int height, int sda, int scl, int reset_pin = -1) : width(width), height(height), sda(sda), scl(scl), rst_pin(reset_pin) {
         Wire.begin(sda, scl);
-        DuckDisplay<Display>::begin();
+        DuckDisplay<Display>::begin(0x3C);
     }
     virtual ~DuckDisplay() = default;
 
@@ -45,12 +45,11 @@ public:
      * initialization, so you must override that method if using a different display library.
      */
     virtual void begin(uint8_t i2c_addr) {
+        display = Display(width, height, &Wire, rst_pin);
         if(!display.begin(SSD1306_SWITCHCAPVCC, i2c_addr)) {
-            logdbg_ln("SSD1306 allocation failed");
+            logerr_ln("SSD1306 allocation failed");
             return;
         }
-
-        display = Display(width, height, &Wire, rst_pin);
         showDefaultScreen();
     }
     /**

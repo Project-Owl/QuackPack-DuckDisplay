@@ -32,7 +32,7 @@
   "dependencies": [
     {
       "name": "ClusterDuck-Protocol",
-      "version": "https://github.com/ClusterDuck-Protocol/ClusterDuck-Protocol/archive/refs/tags/5.0.0.zip"
+      "version": "https://github.com/BrentonPoke/ClusterDuck-Protocol/archive/refs/heads/rem-display.zip"
     },
     {
       "name": "Adafruit SSD1306",
