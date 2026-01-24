@@ -5,12 +5,13 @@
 #include <Wire.h>
 #include "utils/DuckLogger.h"
 #include "Ducks/DuckTypes.h"
+#include <string>
 #include "include/cdpcfg.h"
 
 template <class  Display = Adafruit_SSD1306>
 class DuckDisplay {
 public:
-    DuckDisplay<Display>():width(128), height(64), sda(21), scl(22), rst_pin(-1) {
+    DuckDisplay():width(128), height(64), sda(21), scl(22), rst_pin(-1) {
         Wire.begin(sda, scl);
         DuckDisplay<Display>::begin(0x3C);
     }
@@ -77,8 +78,8 @@ public:
         display.ssd1306_command(SSD1306_DISPLAYON);
     }
 
-    [[nodiscard]] std::uint8_t getWidth() const {return width;}
-    [[nodiscard]] std::uint8_t getHeight() const {return height;}
+    [[nodiscard]] uint8_t getWidth() const {return width;}
+    [[nodiscard]] uint8_t getHeight() const {return height;}
     /**
      * @param none
      * @return Display&
@@ -111,7 +112,7 @@ public:
         return duckTypeStr;
     }
 protected:
-    std::uint8_t width, height;
+    uint8_t width, height;
     int sda, scl, rst_pin, duckType;
     Display display;
 };

@@ -32,11 +32,23 @@
   "dependencies": [
     {
       "name": "ClusterDuck-Protocol",
-      "version": "https://github.com/BrentonPoke/ClusterDuck-Protocol/archive/refs/heads/rem-display.zip"
+      "version": "https://github.com/BrentonPoke/ClusterDuck-Protocol.git#rem-display"
     },
     {
       "name": "Adafruit SSD1306",
       "version": "^2.5.7"
+    },
+    {
+      "name": "Adafruit GFX Library",
+      "version": "^1.12.4"
+    },
+    {
+      "name": "Adafruit BusIO",
+      "version": "^1.17.4"
+    },
+    {
+      "name": "U8g2",
+        "version": "^2.36.17"
     }
   ],
   "export": {
