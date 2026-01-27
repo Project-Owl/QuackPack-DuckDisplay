@@ -113,7 +113,7 @@ public:
     }
 protected:
     uint8_t width, height;
-    int sda, scl, rst_pin, duckType;
+    int sda, scl, rst_pin, duckType{0x02};
     Display display;
 };
 #endif
