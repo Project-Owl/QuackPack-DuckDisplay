@@ -77,14 +77,14 @@ public:
         display.ssd1306_command(SSD1306_DISPLAYON);
     }
 
-    [[nodiscard]] uint16_t getWidth() const {return width;}
-    [[nodiscard]] uint16_t getHeight() const {return height;}
+    [[nodiscard]] int getWidth() const {return width;}
+    [[nodiscard]] int getHeight() const {return height;}
     /**
      * @param none
      * @return Display
      * @brief Returns a reference to the display object for direct manipulation
      */
-    Display getDisplay() {return display;}
+    Display getDisplay() {return this->display;}
 
     enum DuckType {
         /// A Duck of unknown type
@@ -99,33 +99,9 @@ public:
         DETECTOR = 0x04,
         MAX_TYPE
       };
-    /**
-     * @param duckType
-     * @return std::string
-     * @brief Converts a duck type integer to a human-readable string
-     */
-    static std::string duckTypeToString(int duckType) {
-        std::string duckTypeStr;
-        switch (duckType) {
-            case DuckType::PAPA:
-                duckTypeStr = "Papa";
-                break;
-            case DuckType::LINK:
-                duckTypeStr = "Link";
-                break;
-            case DuckType::DETECTOR:
-                duckTypeStr = "Detector";
-                break;
-            case DuckType::MAMA:
-                duckTypeStr = "Mama";
-                break;
-            default:
-                duckTypeStr = "Duck";
-        }
-        return duckTypeStr;
-    }
+
 protected:
-    uint8_t width, height;
+    int width, height;
     int sda, scl, rst_pin, duckType;
     Display display;
 };
