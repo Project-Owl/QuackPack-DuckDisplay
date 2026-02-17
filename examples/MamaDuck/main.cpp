@@ -1,10 +1,10 @@
-#include <DuckDisplay.h>
+#include "DuckTest.h"
 
-//DuckDisplay<Adafruit_SSD1306> disp;
+//DuckTest<Adafruit_SSD1306> disp;
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 #define OLED_RESET     -1
-DuckDisplay disp(SCREEN_WIDTH, SCREEN_HEIGHT, 21, 22, OLED_RESET);
+DuckTest disp(SCREEN_WIDTH, SCREEN_HEIGHT, 21, 22, OLED_RESET);
 void setup() {
     // Initialize the display before first use and verify it succeeded.
     disp.begin(OLED_RESET);

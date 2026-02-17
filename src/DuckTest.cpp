@@ -1,11 +1,11 @@
 //
 // Created by brent on 1/16/2026.
 //
-// #include "DuckDisplay.h"
+// #include "DuckTest.h"
 // #include "U8g2lib.h"
 // #include "utils/DuckUtils.h"
 //
-// class U8G2Display : public DuckDisplay<U8G2> {
+// class U8G2Display : public DuckTest<U8G2> {
 // public:
 //     ~U8G2Display() override = default;
 //     void showDefaultScreen() override {

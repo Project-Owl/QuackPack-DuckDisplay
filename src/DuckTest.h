@@ -1,29 +1,29 @@
 #pragma once
-#ifndef DUCKDISPLAY_H
-#define DUCKDISPLAY_H
+#ifndef DUCKTEST_H
+#define DUCKTEST_H
 #include <Adafruit_SSD1306.h>
 #include <Wire.h>
 #include "utils/DuckLogger.h"
 #include <string>
 
 template <class  Display = Adafruit_SSD1306>
-class DuckDisplay {
+class DuckTest {
 public:
-    DuckDisplay() : width(128), height(64), sda(21), scl(22), rst_pin(-1), duckType(DuckType::MAMA) {
-        //Wire.begin(sda, scl);
-        //DuckDisplay<Display>::begin(0x3c);
+    // DuckTest() : width(128), height(64), sda(21), scl(22), rst_pin(-1), duckType(DuckType::MAMA) {
+    //     //Wire.begin(sda, scl);
+    //     //DuckTest<Display>::begin(0x3c);
+    // }
+
+    // DuckTest(int width, int height) : width(width), height(height), sda(21), scl(22), rst_pin(-1), duckType(DuckType::MAMA) {
+    //     //Wire.begin(sda, scl);
+    //     //DuckTest<Display>::begin(0x3C);
     }
 
-    DuckDisplay(int width, int height) : width(width), height(height), sda(21), scl(22), rst_pin(-1), duckType(DuckType::MAMA) {
-        //Wire.begin(sda, scl);
-        //DuckDisplay<Display>::begin(0x3C);
+    DuckTest(int width, int height, int sda, int scl, int reset_pin = -1) : width(width), height(height), sda(sda), scl(scl), rst_pin(reset_pin), duckType(DuckType::MAMA) {
+        Wire.begin(sda, scl);
+        DuckTest<Display>::begin(0x3C);
     }
-
-    DuckDisplay(int width, int height, int sda, int scl, int reset_pin = -1) : width(width), height(height), sda(sda), scl(scl), rst_pin(reset_pin), duckType(DuckType::MAMA) {
-        //Wire.begin(sda, scl);
-        //DuckDisplay<Display>::begin(0x3C);
-    }
-    virtual ~DuckDisplay() = default;
+    // virtual ~DuckTest() = default;
 
     /**
      * @param none
