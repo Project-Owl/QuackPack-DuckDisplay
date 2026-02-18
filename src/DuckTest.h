@@ -2,28 +2,17 @@
 #ifndef DUCKTEST_H
 #define DUCKTEST_H
 #include <Adafruit_SSD1306.h>
-#include <Wire.h>
 #include "utils/DuckLogger.h"
 #include <string>
+#include <QuackPack.h>
 
 template <class  Display = Adafruit_SSD1306>
-class DuckTest {
+class DuckTest : public QuackPack {
 public:
-    // DuckTest() : width(128), height(64), sda(21), scl(22), rst_pin(-1), duckType(DuckType::MAMA) {
-    //     //Wire.begin(sda, scl);
-    //     //DuckTest<Display>::begin(0x3c);
-    // }
+    DuckTest(int width, int height, int reset_pin = -1) : width(width), height(height), display(width, height, &Wire, reset_pin) {}
+    virtual ~DuckTest() = default;
 
-    // DuckTest(int width, int height) : width(width), height(height), sda(21), scl(22), rst_pin(-1), duckType(DuckType::MAMA) {
-    //     //Wire.begin(sda, scl);
-    //     //DuckTest<Display>::begin(0x3C);
-    }
-
-    DuckTest(int width, int height, int sda, int scl, int reset_pin = -1) : width(width), height(height), sda(sda), scl(scl), rst_pin(reset_pin), duckType(DuckType::MAMA) {
-        Wire.begin(sda, scl);
-        DuckTest<Display>::begin(0x3C);
-    }
-    // virtual ~DuckTest() = default;
+    Display display;
 
     /**
      * @param none
@@ -40,18 +29,20 @@ public:
         this->display.display();
     }
     /**
-     * @param i2c_addr
      * @return void
      * @brief Initializes the OLED display. override to customize initialization. Will call showDefaultScreen after
      * initialization, so you must override that method if using a different display library.
      */
-    virtual void begin(uint8_t i2c_addr) {
-        Wire.begin(sda, scl);
-        Serial.begin(115200);
-        this->display = Display(width, height, &Wire, rst_pin);
-        if(!this->display.begin(SSD1306_SWITCHCAPVCC, i2c_addr))
+
+    void launch() override { //maybe we can rename to begin since it's standard
+        if(!this->display.begin(SSD1306_SWITCHCAPVCC, reset_pin))
             logerr_ln("SSD1306 allocation failed");
-    }
+        Serial.println("setup complete"); //display owl logo?
+      }
+      void execute() override { //add text replaced argument?? (for dms)
+        //print the last message sent maybe?
+        //call displayToScreen
+      }
     /**
      * @param none
      * @return void
@@ -73,36 +64,19 @@ public:
      * @return void
      * @brief Wakes the display from sleep
      */
-    virtual void wake() {
+    virtual void wake() { //why are these all virtual?
         display.ssd1306_command(SSD1306_DISPLAYON);
     }
 
+    // void displayToScreen(){ 
+        //a function that takes a display object, clears the screen, and prints new?
+    // }
+
     [[nodiscard]] int getWidth() const {return width;}
     [[nodiscard]] int getHeight() const {return height;}
-    /**
-     * @param none
-     * @return Display
-     * @brief Returns a reference to the display object for direct manipulation
-     */
-    Display getDisplay() {return this->display;}
 
-    enum DuckType {
-        /// A Duck of unknown type
-        UNKNOWN = 0x00,
-        /// A PapaDuck
-        PAPA = 0x01,
-        /// A MamaDuck
-        MAMA = 0x02,
-        /// A DuckLink
-        LINK = 0x03,
-        /// A Detector Duck
-        DETECTOR = 0x04,
-        MAX_TYPE
-      };
 
 protected:
-    int width, height;
-    int sda, scl, rst_pin, duckType;
-    Display display;
+    int width, height, reset_pin;
 };
 #endif
