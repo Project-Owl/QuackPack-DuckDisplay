@@ -9,8 +9,8 @@
 template <class  Display = Adafruit_SSD1306>
 class DuckTest : public QuackPack {
 public:
-    DuckTest(int width, int height, int reset_pin = -1) : width(width), height(height) {
-        display = Display(width, height, &Wire, reset_pin);
+    DuckTest(int width, int height, int reset_pin = -1) : width(width), height(height), display(width, height, &Wire, reset_pin) {
+
     }
     virtual ~DuckTest() = default;
 
