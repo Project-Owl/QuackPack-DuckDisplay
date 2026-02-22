@@ -95,6 +95,31 @@ public:
         DETECTOR = 0x04,
         MAX_TYPE
       };
+    /**
+     * @param duckType
+     * @return std::string
+     * @brief Converts a duck type integer to a human-readable string
+     */
+    static std::string duckTypeToString(int duckType) {
+        std::string duckTypeStr;
+        switch (duckType) {
+            case DuckType::PAPA:
+                duckTypeStr = "Papa";
+                break;
+            case DuckType::LINK:
+                duckTypeStr = "Link";
+                break;
+            case DuckType::DETECTOR:
+                duckTypeStr = "Detector";
+                break;
+            case DuckType::MAMA:
+                duckTypeStr = "Mama";
+                break;
+            default:
+                duckTypeStr = "Duck";
+        }
+        return duckTypeStr;
+    }
 
     [[nodiscard]] int getWidth() const {return width;}
     [[nodiscard]] int getHeight() const {return height;}
