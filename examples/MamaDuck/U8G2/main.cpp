@@ -11,7 +11,6 @@ U8G2Display<U8G2_SSD1306_128X64_NONAME_F_HW_I2C> disp(SCREEN_WIDTH, SCREEN_HEIGH
 
 void setup() {
     // Initialize the display before first use and verify it succeeded.
-    //Wire.begin(SDA_PIN, SLC_PIN); //wire has to begin before we can use display
     disp.launch();
     delay(3000);
 

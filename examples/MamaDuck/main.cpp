@@ -8,7 +8,6 @@
 AdafruitDisplay disp(SCREEN_WIDTH, SCREEN_HEIGHT, OLED_RESET);
 void setup() {
     // Initialize the display before first use and verify it succeeded.
-    //Wire.begin(SDA_PIN, SLC_PIN); //wire has to begin before we can use display
     disp.launch();
     //disp.display.clearDisplay();
     disp.display.setTextSize(1);
