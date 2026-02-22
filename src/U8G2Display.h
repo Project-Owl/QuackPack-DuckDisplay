@@ -9,13 +9,13 @@ class U8G2Display : public DuckTest<U8G2> {
 public:
     U8G2Display()
         : DuckTest() {
-
+        this->display = U8G2(U8G2_SSD1306_128X64_NONAME_F_HW_I2C(U8G2_R0,U8X8_PIN_NONE, this->scl, this->sda));
     }
     U8G2Display(int width, int height, int rst_pin = -1)
         : DuckTest (width,
           height,
           rst_pin) {
-
+        this->display = U8G2(U8G2_SSD1306_128X64_NONAME_F_HW_I2C(U8G2_R0,U8X8_PIN_NONE, this->scl, this->sda));
     }
 
     U8G2Display(int width, int height, int sda, int scl, uint8_t i2caddr, int rst_pin = -1)
@@ -25,7 +25,7 @@ public:
           scl,
           i2caddr,
           rst_pin) {
-
+        this->display = U8G2(U8G2_SSD1306_128X64_NONAME_F_HW_I2C(U8G2_R0,U8X8_PIN_NONE, this->scl, this->sda));
     }
     ~U8G2Display() override = default;
     void showDefaultScreen() override {
@@ -36,6 +36,7 @@ public:
         display.drawStr(0,10,"MamaDuck Device");
         display.drawStr(0,20,"Initializing...");
         display.sendBuffer();
+        delay(3000);
         display.clearBuffer();
         display.setCursor(0, 10);
         display.print("ClusterDuck");
@@ -50,13 +51,14 @@ public:
         display.print("v:");
         display.print(duckutils::getCDPVersion().c_str());
         display.sendBuffer();
+        display.display();
     }
     void clear() override {
         display.clearDisplay();
     }
     void launch() override {
-        this->display = U8G2();
-        display.setI2CAddress(this->i2caddr); //u8g2 expects 8 bit address
+        Wire.begin(sda, scl);
+        Serial.begin(115200);//u8g2 expects 8 bit address
         display.begin();
         showDefaultScreen();
     }

@@ -3,10 +3,10 @@
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
-#define OLED_RESET    -1// 16 heltec v2
+#define OLED_RESET    // 16 heltec v2
 #define SDA_PIN 21 //4 heltec v2
 #define SLC_PIN 22 //15 heltec v2
-U8G2Display disp(SCREEN_WIDTH, SCREEN_HEIGHT, OLED_RESET);
+U8G2Display disp(SCREEN_WIDTH, SCREEN_HEIGHT, U8X8_PIN_NONE);
 
 void setup() {
     // Initialize the display before first use and verify it succeeded.
@@ -18,10 +18,9 @@ void setup() {
 
 void loop() {
 
-    disp.clear();
-    delay(3000);
-    disp.display.setCursor(0,0);
-    disp.display.println("Looping");
-    disp.display.display();
-
+    disp.display.clearBuffer();					// clear the internal memory
+    disp.display.setFont(u8g2_font_ncenB08_tr);	// choose a suitable font
+    disp.display.drawStr(0,10,"Hello World!");	// write something to the internal memory
+    disp.display.sendBuffer();					// transfer internal memory to the display
+    delay(1000);
 }
