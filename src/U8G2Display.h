@@ -15,20 +15,22 @@ public:
         : DuckTest() {
         this->display = U8G2(driver);
     }
-    U8G2Display(int width, int height,Driver& driver, int rst_pin = -1)
+    U8G2Display(int width, int height,Driver& driver, int rst_pin = -1, DuckType duckType = DuckType::UNKNOWN)
         : DuckTest (width,
           height,
-          rst_pin) {
+          rst_pin,
+          duckType) {
         this->display = U8G2(driver);
     }
 
-    U8G2Display(int width, int height, int sda, int scl, uint8_t i2caddr,Driver& driver, int rst_pin = -1)
+    U8G2Display(int width, int height, int sda, int scl, uint8_t i2caddr,Driver& driver, int rst_pin = -1, DuckType duckType = DuckType::UNKNOWN)
         : DuckTest (width,
           height,
           sda,
           scl,
           i2caddr,
-          rst_pin) {
+          rst_pin,
+          duckType) {
         this->display = U8G2(driver);
     }
     ~U8G2Display() override = default;

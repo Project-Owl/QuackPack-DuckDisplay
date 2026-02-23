@@ -4,6 +4,7 @@
 #include <Wire.h>
 #include <string>
 #include <QuackPack.h>
+#include "Ducks/DuckTypes.h"
 
 template <class  Display>
 class DuckTest : public QuackPack {
@@ -15,26 +16,28 @@ public:
           sda(21),
           scl(22),
           i2caddr(0x3C),
-          duckType(DuckType::MAMA) {
+          duckType(DuckType::UNKNOWN) {
 
     }
-    DuckTest(int width, int height, int rst_pin = -1) :
-          width(width),
+    DuckTest(int width, int height, int rst_pin = -1, DuckType duckType = DuckType::UNKNOWN)
+        : width(width),
           height(height),
           reset_pin(rst_pin),
           sda(21),
           scl(22),
-          i2caddr(0x3C) {
+          i2caddr(0x3C),
+          duckType(duckType) {
 
     }
 
-    DuckTest(int width, int height, int sda, int scl, uint8_t i2caddr, int rst_pin = -1)
+    DuckTest(int width, int height, int sda, int scl, uint8_t i2caddr, int rst_pin = -1, DuckType duckType = DuckType::UNKNOWN)
         : width(width),
           height(height),
           reset_pin(rst_pin),
           sda(sda),
           scl(scl),
-          i2caddr(i2caddr) {
+          i2caddr(i2caddr),
+          duckType(duckType) {
 
     }
 
@@ -82,19 +85,6 @@ public:
         //a function that takes a display object, clears the screen, and prints new?
     // }
 
-    enum DuckType {
-        /// A Duck of unknown type
-        UNKNOWN = 0x00,
-        /// A PapaDuck
-        PAPA = 0x01,
-        /// A MamaDuck
-        MAMA = 0x02,
-        /// A DuckLink
-        LINK = 0x03,
-        /// A Detector Duck
-        DETECTOR = 0x04,
-        MAX_TYPE
-      };
     /**
      * @param duckType
      * @return std::string
