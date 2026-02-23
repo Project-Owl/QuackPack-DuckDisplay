@@ -56,8 +56,8 @@ public:
         display.print("----------------");
         display.setCursor(0, 40);
         //Not sure if this will call the Print.h or u8g2 print method
-        //display.printf("DT: %s",duckTypeToString(duckType).c_str());
-        //display.setCursor(0, 50);
+        display.printf("DT: %s",duckTypeToString(duckType).c_str());
+        display.setCursor(0, 50);
         display.print("v:");
         display.print(duckutils::getCDPVersion().c_str());
         display.sendBuffer();
@@ -68,7 +68,7 @@ public:
     }
     void launch() override {
         Wire.begin(sda, scl);
-        Serial.begin(115200);//u8g2 expects 8 bit address
+        Serial.begin(115200);
         display.begin();
         showDefaultScreen();
     }

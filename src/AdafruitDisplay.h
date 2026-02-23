@@ -9,12 +9,10 @@
 
 class AdafruitDisplay : public DuckTest<Adafruit_SSD1306> {
 public:
-    //template <class  Display = Adafruit_SSD1306>
     AdafruitDisplay()
         : DuckTest() {
         this->display = Adafruit_SSD1306(width, height, &Wire, reset_pin);
     }
-    //template <class  Display = Adafruit_SSD1306>
     AdafruitDisplay(int width, int height, int rst_pin = -1, DuckType duckType = DuckType::UNKNOWN)
         : DuckTest (width,
           height,
@@ -22,7 +20,6 @@ public:
           duckType) {
         this->display = Adafruit_SSD1306(width, height, &Wire, reset_pin);
     }
-    //template <class  Display = Adafruit_SSD1306>
     AdafruitDisplay(int width, int height, int sda, int scl, uint8_t i2caddr, int rst_pin = -1, DuckType duckType = DuckType::UNKNOWN)
         : DuckTest (width,
           height,
@@ -55,7 +52,6 @@ public:
      * @brief Initializes the OLED display. override to customize initialization. Will call showDefaultScreen after
      * initialization, so you must override that method if using a different display library.
      */
-
     void launch() override { //maybe we can rename to begin since it's standard
         Wire.begin(sda, scl);
         Serial.begin(115200);
