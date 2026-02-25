@@ -1,4 +1,5 @@
 #include "AdafruitDisplay.h"
+#include "logo.h"
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
@@ -8,8 +9,10 @@
 AdafruitDisplay disp(SCREEN_WIDTH, SCREEN_HEIGHT, OLED_RESET);
 void setup() {
     // Initialize the display before first use and verify it succeeded.
+    disp.setLogo(LOGO);
     disp.launch();
-    //disp.display.clearDisplay();
+    disp.showLogo();
+    delay(3000);
     disp.display.setTextSize(1);
     disp.display.setTextColor(SSD1306_WHITE);
     disp.display.setCursor(0,0);

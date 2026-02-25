@@ -1,5 +1,6 @@
 // Created by brent on 2/20/2026.
 #include "U8G2Display.h"
+#include "logo.h"
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
@@ -11,6 +12,7 @@ U8G2Display<U8G2_SSD1306_128X64_NONAME_F_HW_I2C> disp(SCREEN_WIDTH, SCREEN_HEIGH
 
 void setup() {
     // Initialize the display before first use and verify it succeeded.
+    disp.setLogo(LOGO);
     disp.launch();
     delay(3000);
 

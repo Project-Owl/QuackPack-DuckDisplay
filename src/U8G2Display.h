@@ -4,6 +4,7 @@
 #include "U8g2lib.h"
 #include <utils/DuckLogger.h>
 #include "utils/DuckUtils.h"
+
 template <class Driver>
 class U8G2Display : public DuckTest<U8G2> {
 public:
@@ -63,6 +64,16 @@ public:
         display.sendBuffer();
         display.display();
     }
+    void showLogo() override {
+        loginfo_ln("Showing logo");
+        display.clearBuffer();
+        display.drawXBM( 0, 0, width, height, logo.data());
+        display.sendBuffer();
+    }
+    void setLogo(const std::vector<std::uint8_t> &logoData) override {
+        loginfo_ln("Setting logo");
+        logo = logoData;
+    }
     void clear() override {
         display.clearDisplay();
     }
@@ -70,7 +81,7 @@ public:
         Wire.begin(sda, scl);
         Serial.begin(115200);
         display.begin();
-        showDefaultScreen();
+        showLogo();
     }
     void sleep() override {
         display.setPowerSave(1);

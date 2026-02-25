@@ -5,6 +5,7 @@
 #include <string>
 #include <QuackPack.h>
 #include "Ducks/DuckTypes.h"
+#include <vector>
 
 template <class  Display>
 class DuckTest : public QuackPack {
@@ -62,6 +63,7 @@ public:
         //print the last message sent maybe?
         //call displayToScreen
       }
+    virtual void showLogo() = 0;
     /**
      * @param none
      * @return void
@@ -80,6 +82,8 @@ public:
      * @brief Wakes the display from sleep
      */
     virtual void wake() = 0;
+
+    virtual void setLogo(const std::vector<std::uint8_t>& logoData) = 0;
 
     // void displayToScreen(){ 
         //a function that takes a display object, clears the screen, and prints new?
@@ -117,6 +121,7 @@ public:
 
 protected:
     int width, height, reset_pin, sda, scl;
+    std::vector<std::uint8_t> logo;
     uint8_t i2caddr;
     DuckType duckType;
 };

@@ -64,6 +64,26 @@ public:
         //call displayToScreen
       }
     /**
+     * @param logoData A vector of uint8_t representing the bitmap data for the logo to be displayed. Must be the same dimensions as the display (width*height/8 bytes).
+     * @return void
+     * @brief Sets the logo to be displayed on the OLED display. Requires showLogo() to actually display, and launch() to initialize the display first.
+     */
+    void setLogo(const std::vector<std::uint8_t> &logoData) override {
+        loginfo_ln("Setting logo");
+        logo = logoData;
+    };
+    /**
+     * @param none
+     * @return void
+     * @brief Displays the logo set by setLogo on the OLED display. Requires logo to be set first.
+     */
+    void showLogo() override {
+        loginfo_ln("Showing logo");
+        display.clearDisplay();
+        display.drawXBitmap(0, 0, logo.data(), width, height, SSD1306_WHITE);
+        display.display();
+    }
+    /**
      * @param none
      * @return void
      * @brief Clears the display
