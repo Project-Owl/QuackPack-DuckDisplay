@@ -77,10 +77,17 @@ public:
      * @return void
      * @brief Displays the logo set by setLogo on the OLED display. Requires logo to be set first.
      */
-    void showLogo() override {
+    void showLogo(IMGTYPE type) override {
         loginfo_ln("Showing logo");
         display.clearDisplay();
-        display.drawXBitmap(0, 0, logo.data(), width, height, SSD1306_WHITE);
+        switch (type) {
+            case BITMAP:
+                display.drawBitmap(0, 0, logo.data(), width, height, SSD1306_WHITE);
+                break;
+            case XBM:
+                display.drawXBitmap(0, 0, logo.data(), width, height, SSD1306_WHITE);
+                break;
+        }
         display.display();
     }
     /**

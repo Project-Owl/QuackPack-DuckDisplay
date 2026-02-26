@@ -64,10 +64,23 @@ public:
         display.sendBuffer();
         display.display();
     }
-    void showLogo() override {
+
+    /**
+     * @param none
+     * @return void
+     * @brief Displays the logo on the OLED display. Requires logo to be set first. u8g2 can use either XBM or bitmap.
+     */
+    void showLogo(IMGTYPE type) override {
         loginfo_ln("Showing logo");
         display.clearBuffer();
-        display.drawXBM( 0, 0, width, height, logo.data());
+        switch (type) {
+            case BITMAP:
+                display.drawBitmap(0, 0, width, height, logo.data());
+                break;
+            case XBM:
+                display.drawXBM( 0, 0, width, height, logo.data());
+                break;
+        }
         display.sendBuffer();
     }
     void setLogo(const std::vector<std::uint8_t> &logoData) override {

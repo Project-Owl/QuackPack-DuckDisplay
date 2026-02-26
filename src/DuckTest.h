@@ -45,6 +45,10 @@ public:
     virtual ~DuckTest() = default;
 
     Display display;
+    enum IMGTYPE {
+        BITMAP,
+        XBM
+    };
 
     /**
      * @param none
@@ -63,7 +67,12 @@ public:
         //print the last message sent maybe?
         //call displayToScreen
       }
-    virtual void showLogo() = 0;
+    /**
+     * @param type The type of image data being passed (BITMAP or XBM)
+     * @return void
+     * @brief Displays the logo on the OLED display. Requires logo to be set first.
+     */
+    virtual void showLogo(IMGTYPE type) = 0;
     /**
      * @param none
      * @return void
