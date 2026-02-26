@@ -93,8 +93,8 @@ public:
     void launch() override {
         Wire.begin(sda, scl);
         Serial.begin(115200);
-        display.begin();
-        showLogo();
+        if (!display.begin())
+            logerr_ln("U8G2 allocation failed");;
     }
     void sleep() override {
         display.setPowerSave(1);

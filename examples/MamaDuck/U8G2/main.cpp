@@ -14,6 +14,7 @@ void setup() {
     // Initialize the display before first use and verify it succeeded.
     disp.setLogo(LOGO);
     disp.launch();
+    disp.showLogo(disp.XBM);
     delay(3000);
 
 }

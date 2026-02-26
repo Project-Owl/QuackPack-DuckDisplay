@@ -11,7 +11,7 @@ void setup() {
     // Initialize the display before first use and verify it succeeded.
     disp.setLogo(LOGO);
     disp.launch();
-    disp.showLogo();
+    disp.showLogo(disp.BITMAP);
     delay(3000);
     disp.display.setTextSize(1);
     disp.display.setTextColor(SSD1306_WHITE);
