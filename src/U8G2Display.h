@@ -57,7 +57,7 @@ public:
         display.print("----------------");
         display.setCursor(0, 40);
         //Not sure if this will call the Print.h or u8g2 print method
-        display.printf("DT: %s",duckTypeToString(duckType).c_str());
+        display.printf("Duck Type: %s",duckTypeToString(duckType).c_str());
         display.setCursor(0, 50);
         display.print("v:");
         display.print(duckutils::getCDPVersion().c_str());

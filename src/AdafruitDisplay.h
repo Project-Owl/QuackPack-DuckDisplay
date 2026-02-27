@@ -5,6 +5,7 @@
 #include "DuckTest.h"
 #include <Adafruit_SSD1306.h>
 #include "utils/DuckLogger.h"
+#include "utils/DuckUtils.h"
 #include <string>
 
 class AdafruitDisplay : public DuckTest<Adafruit_SSD1306> {
@@ -39,13 +40,18 @@ public:
      * @brief Displays the default screen on the OLED display
      */
     void showDefaultScreen() override {
-        this->display.clearDisplay();
-        this->display.setTextSize(1);
-        this->display.setTextColor(SSD1306_WHITE);
-        this->display.setCursor(0, 10);
-        this->display.println("MamaDuck Device");
-        this->display.println("Initializing...");
-        this->display.display();
+        loginfo_ln("Showing default Adafruit screen");
+        display.clearDisplay();
+        display.setTextSize(1);
+        display.setTextColor(SSD1306_WHITE);
+        display.setCursor(0, 10);
+        display.println("Clusterduck");
+        display.println("Protocol");
+        display.println("----------------");
+        display.printf("Duck Type: %s",duckTypeToString(duckType).c_str());
+        display.print("v:");
+        display.print(duckutils::getCDPVersion().c_str());
+        display.display();
     }
     /**
      * @return void

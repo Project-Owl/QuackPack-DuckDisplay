@@ -6,28 +6,28 @@
 #define OLED_RESET    -1// 16 heltec v2
 #define SDA_PIN 21 //4 heltec v2
 #define SLC_PIN 22 //15 heltec v2
-AdafruitDisplay disp(SCREEN_WIDTH, SCREEN_HEIGHT, OLED_RESET);
+AdafruitDisplay driver(SCREEN_WIDTH, SCREEN_HEIGHT, OLED_RESET);
 void setup() {
     // Initialize the display before first use and verify it succeeded.
-    disp.setLogo(LOGO);
-    disp.launch();
-    disp.showLogo(disp.BITMAP);
+    driver.setLogo(LOGO);
+    driver.launch();
+    driver.showLogo(driver.BITMAP);
     delay(3000);
-    disp.display.setTextSize(1);
-    disp.display.setTextColor(SSD1306_WHITE);
-    disp.display.setCursor(0,0);
-    disp.showDefaultScreen();
-    disp.display.display(); //maybe we could use some better naming
+    driver.display.setTextSize(1);
+    driver.display.setTextColor(SSD1306_WHITE);
+    driver.display.setCursor(0,0);
+    driver.showDefaultScreen();
+    driver.display.display(); //maybe we could use some better naming
     delay(3000);
 
 }
 
 void loop() {
 
-    disp.clear();
+    driver.clear();
     delay(3000);
-    disp.display.setCursor(0,0);
-    disp.display.println("Looping");
-    disp.display.display();
+    driver.display.setCursor(0,0);
+    driver.display.println("Looping");
+    driver.display.display();
 
 }
