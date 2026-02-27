@@ -57,7 +57,7 @@ public:
         Serial.begin(115200);
         if(!this->display.begin(SSD1306_SWITCHCAPVCC, i2caddr))
             logerr_ln("SSD1306 allocation failed");
-        Serial.println("setup complete"); //display owl logo?
+        loginfo_ln("setup complete"); //display owl logo?
       }
       void execute() override { //add text replaced argument?? (for dms)
         //print the last message sent maybe?
@@ -81,12 +81,16 @@ public:
         loginfo_ln("Showing logo");
         display.clearDisplay();
         switch (type) {
-            case BITMAP:
+            case BITMAP: {
+                logdbg_ln("Showing bitmap logo");
                 display.drawBitmap(0, 0, logo.data(), width, height, SSD1306_WHITE);
                 break;
-            case XBM:
+            }
+            case XBM: {
+                logdbg_ln("Showing XBM logo");
                 display.drawXBitmap(0, 0, logo.data(), width, height, SSD1306_WHITE);
                 break;
+            }
         }
         display.display();
     }
