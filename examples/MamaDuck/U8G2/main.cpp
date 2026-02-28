@@ -16,6 +16,10 @@ void setup() {
     disp.launch();
     disp.showLogo(disp.XBM);
     delay(3000);
+        disp.display.setFont(u8g2_font_ncenB08_tr);
+        disp.display.setCursor(0,0);
+        disp.showDefaultScreen();
+        delay(3000);
 
 }
 

@@ -48,7 +48,7 @@ public:
         display.println("Clusterduck");
         display.println("Protocol");
         display.println("----------------");
-        display.printf("Duck Type: %s",duckTypeToString(duckType).c_str());
+        display.printf("Duck Type: %s\n",duckTypeToString(duckType).c_str());
         display.print("v:");
         display.print(duckutils::getCDPVersion().c_str());
         display.display();
