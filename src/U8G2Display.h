@@ -43,9 +43,7 @@ public:
         loginfo_ln("Showing default U8G2 screen");
         display.clearDisplay();
         display.setFont(u8g2_font_ncenB08_tr);
-        display.setCursor(0, 10);
-        display.drawStr(0,10,"MamaDuck Device");
-        display.drawStr(0,20,"Initializing...");
+        display.drawStr(0,10,"Initializing...");
         display.sendBuffer();
         delay(3000);
         display.clearBuffer();
