@@ -8,9 +8,9 @@
 #include <vector>
 
 template <class  Display>
-class DuckTest : public QuackPack {
+class DuckDisplay : public QuackPack {
 public:
-    DuckTest()
+    DuckDisplay()
         : width(128),
           height(64),
           reset_pin(-1),
@@ -20,7 +20,7 @@ public:
           duckType(DuckType::UNKNOWN) {
 
     }
-    DuckTest(int width, int height, int rst_pin = -1, DuckType duckType = DuckType::UNKNOWN)
+    DuckDisplay(int width, int height, int rst_pin = -1, DuckType duckType = DuckType::UNKNOWN)
         : width(width),
           height(height),
           reset_pin(rst_pin),
@@ -31,7 +31,7 @@ public:
 
     }
 
-    DuckTest(int width, int height, int sda, int scl, uint8_t i2caddr, int rst_pin = -1, DuckType duckType = DuckType::UNKNOWN)
+    DuckDisplay(int width, int height, int sda, int scl, uint8_t i2caddr, int rst_pin = -1, DuckType duckType = DuckType::UNKNOWN)
         : width(width),
           height(height),
           reset_pin(rst_pin),
@@ -42,7 +42,7 @@ public:
 
     }
 
-    virtual ~DuckTest() = default;
+    virtual ~DuckDisplay() = default;
 
     Display display;
     enum IMGTYPE {

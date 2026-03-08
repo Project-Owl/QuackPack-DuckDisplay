@@ -1,27 +1,27 @@
 // Created by brent on 2/20/2026.
 #ifndef ADAFRUITDISPLAY_H
 #define ADAFRUITDISPLAY_H
-#include "DuckTest.h"
+#include "DuckDisplay.h"
 #include <Adafruit_SSD1306.h>
 #include "utils/DuckLogger.h"
 #include "utils/DuckUtils.h"
 #include <string>
 
-class AdafruitDisplay : public DuckTest<Adafruit_SSD1306> {
+class AdafruitDisplay : public DuckDisplay<Adafruit_SSD1306> {
 public:
     AdafruitDisplay()
-        : DuckTest() {
+        : DuckDisplay() {
         this->display = Adafruit_SSD1306(width, height, &Wire, reset_pin);
     }
     AdafruitDisplay(int width, int height, int rst_pin = -1, DuckType duckType = DuckType::UNKNOWN)
-        : DuckTest (width,
+        : DuckDisplay (width,
           height,
           rst_pin,
           duckType) {
         this->display = Adafruit_SSD1306(width, height, &Wire, reset_pin);
     }
     AdafruitDisplay(int width, int height, int sda, int scl, uint8_t i2caddr, int rst_pin = -1, DuckType duckType = DuckType::UNKNOWN)
-        : DuckTest (width,
+        : DuckDisplay (width,
           height,
           sda,
           scl,

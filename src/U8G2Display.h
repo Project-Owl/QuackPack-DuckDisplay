@@ -1,24 +1,24 @@
 // Created by brent on 1/16/2026.
 #ifndef U8G2DISPLAY_H
 #define U8G2DISPLAY_H
-#include "DuckTest.h"
+#include "DuckDisplay.h"
 #include "U8g2lib.h"
 #include <utils/DuckLogger.h>
 #include "utils/DuckUtils.h"
 
 template <class Driver>
-class U8G2Display : public DuckTest<U8G2> {
+class U8G2Display : public DuckDisplay<U8G2> {
 public:
     U8G2Display()
-        : DuckTest() {
+        : DuckDisplay() {
     }
 
     U8G2Display(Driver& driver)
-        : DuckTest() {
+        : DuckDisplay() {
         this->display = U8G2(driver);
     }
     U8G2Display(int width, int height,Driver& driver, int rst_pin = -1, DuckType duckType = DuckType::UNKNOWN)
-        : DuckTest (width,
+        : DuckDisplay (width,
           height,
           rst_pin,
           duckType) {
@@ -26,7 +26,7 @@ public:
     }
 
     U8G2Display(int width, int height, int sda, int scl, uint8_t i2caddr,Driver& driver, int rst_pin = -1, DuckType duckType = DuckType::UNKNOWN)
-        : DuckTest (width,
+        : DuckDisplay (width,
           height,
           sda,
           scl,
