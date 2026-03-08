@@ -1,7 +1,6 @@
 // Created by brent on 2/20/2026.
-#pragma once
-//#ifndef ADAFRUITDISPLAY_H
-//#define ADAFRUITDISPLAY_H
+#ifndef ADAFRUITDISPLAY_H
+#define ADAFRUITDISPLAY_H
 #include "DuckTest.h"
 #include <Adafruit_SSD1306.h>
 #include "utils/DuckLogger.h"
@@ -129,4 +128,4 @@ public:
         //a function that takes a display object, clears the screen, and prints new?
     // }
 };
-//#endif
+#endif

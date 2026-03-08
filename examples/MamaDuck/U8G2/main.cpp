@@ -25,9 +25,10 @@ void setup() {
 
 void loop() {
 
-    disp.display.clearBuffer();					// clear the internal memory
+    disp.clear();					// clear the internal memory
     disp.display.setFont(u8g2_font_ncenB08_tr);	// choose a suitable font
     disp.display.drawStr(0,10,"Hello World!");	// write something to the internal memory
     disp.display.sendBuffer();					// transfer internal memory to the display
+    disp.display.display();
     delay(1000);
 }

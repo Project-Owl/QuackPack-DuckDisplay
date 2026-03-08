@@ -1,5 +1,6 @@
 // Created by brent on 1/16/2026.
-
+#ifndef U8G2DISPLAY_H
+#define U8G2DISPLAY_H
 #include "DuckTest.h"
 #include "U8g2lib.h"
 #include <utils/DuckLogger.h>
@@ -101,3 +102,4 @@ public:
         display.setPowerSave(0);
     }
 };
+#endif
