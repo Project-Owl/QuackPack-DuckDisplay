@@ -103,23 +103,17 @@ public:
      * @return std::string
      * @brief Converts a duck type integer to a human-readable string
      */
-    static std::string duckTypeToString(int duckType) {
-        std::string duckTypeStr;
+    static std::string duckTypeToString(DuckType duckType) {
+        std::string duckTypeStr = "Duck";
         switch (duckType) {
             case DuckType::PAPA:
                 duckTypeStr = "Papa";
-                break;
             case DuckType::LINK:
                 duckTypeStr = "Link";
-                break;
             case DuckType::DETECTOR:
                 duckTypeStr = "Detector";
-                break;
             case DuckType::MAMA:
                 duckTypeStr = "Mama";
-                break;
-            default:
-                duckTypeStr = "Duck";
         }
         return duckTypeStr;
     }
