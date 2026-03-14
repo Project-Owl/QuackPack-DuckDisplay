@@ -11,7 +11,7 @@ void setup() {
     // Initialize the display before first use and verify it succeeded.
     driver.setLogo(LOGO);
     driver.launch();
-    driver.showLogo(driver.BITMAP);
+    driver.showLogo(AdafruitDisplay::BITMAP);
     delay(3000);
     driver.display.setTextSize(1);
     driver.display.setTextColor(SSD1306_WHITE);

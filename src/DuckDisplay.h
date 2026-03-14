@@ -58,8 +58,7 @@ public:
     virtual void showDefaultScreen() = 0;
     /**
      * @return void
-     * @brief Initializes the OLED display. override to customize initialization. Will call showDefaultScreen after
-     * initialization, so you must override that method if using a different display library.
+     * @brief Initializes the OLED display. override to customize initialization. Calls Serial.begin() with baud 115200.
      */
 
     void launch() override = 0;
