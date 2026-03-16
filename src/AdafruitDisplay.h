@@ -80,7 +80,7 @@ public:
     /**
      * @param none
      * @return void
-     * @brief Displays the logo set by setLogo on the OLED display. Requires logo to be set first.
+     * @brief Displays the logo set by setLogo on the OLED display. Requires logo to be set first using setLogo().
      */
     void showLogo(IMGTYPE type) override {
         loginfo_ln("Showing logo");

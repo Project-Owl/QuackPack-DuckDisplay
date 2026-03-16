@@ -4,7 +4,6 @@
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
-#define OLED_RESET    // 16 heltec v2
 #define SDA_PIN 21 //4 heltec v2
 #define SCL_PIN 22 //15 heltec v2
  U8G2_SSD1306_128X64_NONAME_F_HW_I2C driver(U8G2_R0,U8X8_PIN_NONE, SCL_PIN, SDA_PIN);
