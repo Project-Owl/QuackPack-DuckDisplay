@@ -52,12 +52,12 @@ public:
 
     /**
      * @param none
-     * @return void
+     * @return none
      * @brief Displays the default screen on the OLED display
      */
     virtual void showDefaultScreen() = 0;
     /**
-     * @return void
+     * @return none
      * @brief Initializes the OLED display. override to customize initialization. Calls Serial.begin() with baud 115200.
      */
 
@@ -68,29 +68,35 @@ public:
       }
     /**
      * @param type The type of image data being passed (BITMAP or XBM)
-     * @return void
+     * @return none
      * @brief Displays the logo on the OLED display. Requires logo to be set first.
      */
     virtual void showLogo(IMGTYPE type) = 0;
     /**
      * @param none
-     * @return void
+     * @return none
      * @brief Clears the display
      */
     virtual void clear() = 0;
     /**
      * @param none
-     * @return void
+     * @return none
      * @brief Puts the display to sleep. Requires wake() to turn back on, as well as rst_pin to be set.
      */
     virtual void sleep() = 0;
     /**
      * @param none
-     * @return void
+     * @return none
      * @brief Wakes the display from sleep
      */
     virtual void wake() = 0;
 
+    /**
+     *
+     * @param logoData
+     * @return none
+     * @brief A vector of std::uint8_t representing a logo to be displayed on the OLED display.
+     */
     virtual void setLogo(const std::vector<std::uint8_t>& logoData) = 0;
 
     // void displayToScreen(){ 
