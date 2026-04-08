@@ -3,8 +3,8 @@
 #define ADAFRUITDISPLAY_H
 #include "DuckDisplay.h"
 #include <Adafruit_SSD1306.h>
-#include "utils/DuckLogger.h"
 #include "utils/DuckUtils.h"
+#include "utils/DuckLogger.h"
 #include <string>
 
 class AdafruitDisplay : public DuckDisplay<Adafruit_SSD1306> {
@@ -39,7 +39,9 @@ public:
      * @brief Displays the default screen on the OLED display
      */
     void showDefaultScreen() override {
-        loginfo_ln("Showing default Adafruit screen");
+        std::string str = "Adafruit";
+
+        loginfo("Showing default %s screen \n",str);
         display.clearDisplay();
         display.setTextSize(1);
         display.setTextColor(SSD1306_WHITE);

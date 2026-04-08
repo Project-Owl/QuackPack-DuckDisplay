@@ -3,8 +3,8 @@
 #define U8G2DISPLAY_H
 #include "DuckDisplay.h"
 #include "U8g2lib.h"
-#include <utils/DuckLogger.h>
 #include "utils/DuckUtils.h"
+#include <utils/DuckLogger.h>
 
 template <class Driver>
 class U8G2Display : public DuckDisplay<U8G2> {
@@ -41,7 +41,7 @@ public:
     }
 
     void showDefaultScreen() override {
-        loginfo_ln("Showing default U8G2 screen");
+        loginfo_ln("%s","Showing default U8G2 screen");
         display.clearDisplay();
         display.setFont(u8g2_font_ncenB08_tr);
         display.drawStr(0,10,"Initializing...");

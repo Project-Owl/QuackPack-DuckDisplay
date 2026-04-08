@@ -10,6 +10,7 @@ AdafruitDisplay driver(SCREEN_WIDTH, SCREEN_HEIGHT, OLED_RESET);
 void setup() {
     // Initialize the display before first use and verify it succeeded.
     driver.setLogo(LOGO);
+    delay(750); //there's a race condition on these two calls
     driver.launch();
     driver.showLogo(AdafruitDisplay::BITMAP);
     delay(3000);
