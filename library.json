@@ -34,6 +34,9 @@
       "name": "ClusterDuck-Protocol",
       "version": "https://github.com/BrentonPoke/ClusterDuck-Protocol.git"
     },
+    { "name":"QuackPack-Base",
+      "version": "https://github.com/Project-Owl/QuackPack-Base.git"
+    },
     {
       "name": "Adafruit SSD1306",
       "version": "^2.5.7"
