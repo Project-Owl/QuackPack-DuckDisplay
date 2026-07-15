@@ -109,19 +109,31 @@ public:
      * @brief Converts a duck type integer to a human-readable string
      */
     static std::string duckTypeToString(DuckType duckType) {
-        std::string duckTypeStr = "Duck";
+        std::string duckTypeStr;
         switch (duckType) {
-            case DuckType::PAPA:
+            case DuckType::PAPA: {
                 duckTypeStr = "Papa";
-            case DuckType::LINK:
+                break;
+            }
+            case DuckType::LINK: {
                 duckTypeStr = "Link";
-            case DuckType::DETECTOR:
+                break;
+            }
+            case DuckType::DETECTOR: {
                 duckTypeStr = "Detector";
-            case DuckType::MAMA:
+                break;
+            }
+            case DuckType::MAMA: {
                 duckTypeStr = "Mama";
+                break;
+            }
+            case DuckType::UNKNOWN: {
+                duckTypeStr = "Unknown";
+                break;
+            }
         }
         return duckTypeStr;
-    }
+        }
 
     [[nodiscard]] int getWidth() const {return width;}
     [[nodiscard]] int getHeight() const {return height;}
