@@ -84,7 +84,7 @@ public:
      * @return void
      * @brief Displays the logo set by setLogo on the OLED display. Requires logo to be set first using setLogo().
      */
-    void showLogo(IMGTYPE type) override {
+    void showLogo(IMGTYPE type, time_t duration) override {
         loginfo_ln("Showing logo");
         display.clearDisplay();
         switch (type) {
@@ -100,6 +100,8 @@ public:
             }
         }
         display.display();
+        delay(duration);
+        display.clearDisplay();
     }
     /**
      * @param none

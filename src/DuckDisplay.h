@@ -71,7 +71,7 @@ public:
      * @return none
      * @brief Displays the logo on the OLED display. Requires logo to be set first.
      */
-    virtual void showLogo(IMGTYPE type) = 0;
+    virtual void showLogo(IMGTYPE type, time_t duration) = 0;
     /**
      * @param none
      * @return none
