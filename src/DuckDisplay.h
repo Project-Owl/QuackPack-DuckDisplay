@@ -1,11 +1,13 @@
 #pragma once
 #ifndef DUCKTEST_H
 #define DUCKTEST_H
-#include <Wire.h>
+#include <iomanip>
+#include <sstream>
 #include <string>
 #include <QuackPack.h>
 #include "Ducks/DuckTypes.h"
 #include <vector>
+#include <CdpPacket.h>
 
 template <class  Display>
 class DuckDisplay : public QuackPack {
@@ -67,9 +69,9 @@ public:
         //call displayToScreen
       }
     /**
-     * @param type The type of image data being passed (BITMAP or XBM)
-     * @return none
      * @brief Displays the logo on the OLED display. Requires logo to be set first.
+     * @param type The type of image data being passed (BITMAP or XBM)
+     * @param duration The time in time_t to display the logo in milliseconds
      */
     virtual void showLogo(IMGTYPE type, time_t duration) = 0;
     /**
@@ -102,13 +104,17 @@ public:
     // void displayToScreen(){ 
         //a function that takes a display object, clears the screen, and prints new?
     // }
-
+    /**
+     * @brief Prints the header of a CdpPacket to the display. Override this method to customize how the packet header is displayed.
+     * @param packet
+     */
+    virtual void printPacketHeader(CdpPacket& packet) = 0;
     /**
      * @param duckType
      * @return std::string
      * @brief Converts a duck type integer to a human-readable string
      */
-    static std::string duckTypeToString(DuckType duckType) {
+    static std::string duckTypeToString(const DuckType& duckType) {
         std::string duckTypeStr;
         switch (duckType) {
             case DuckType::PAPA: {
@@ -134,6 +140,21 @@ public:
         }
         return duckTypeStr;
         }
+    template<typename Container>
+    static std::string replaceNonPrintableWithHex(const Container& input) {
+        std::string result;
+        for (unsigned char c : input) {
+            if (std::isprint(c)) {
+                result += static_cast<char>(c);
+            } else {
+                // Convert non-printable byte to hex string (e.g., 0x0A -> "0A")
+                std::ostringstream oss;
+                oss << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(c);
+                result += oss.str();
+            }
+        }
+        return result;
+    }
 
     [[nodiscard]] int getWidth() const {return width;}
     [[nodiscard]] int getHeight() const {return height;}

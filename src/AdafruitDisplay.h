@@ -79,12 +79,13 @@ public:
         loginfo_ln("Setting logo");
         logo = logoData;
     };
+
     /**
-     * @param none
-     * @return void
-     * @brief Displays the logo set by setLogo on the OLED display. Requires logo to be set first using setLogo().
+     * @brief Displays the logo on the OLED display. Requires logo to be set first.
+     * @param type The type of image data being passed (BITMAP or XBM)
+     * @param duration The time in time_t to display the logo in milliseconds
      */
-    void showLogo(IMGTYPE type, time_t duration) override {
+    void showLogo(IMGTYPE type, time_t duration=3000) override {
         loginfo_ln("Showing logo");
         display.clearDisplay();
         switch (type) {
@@ -102,6 +103,21 @@ public:
         display.display();
         delay(duration);
         display.clearDisplay();
+    }
+
+    void printPacketHeader(CdpPacket &packet) override {
+        logdbg_ln("Printing packet header to display");
+        const std::string str = packet.topicToString(); //this method prevents CdpPacket from being passed as const because topicToString is not yet const.
+        display.clearDisplay();
+        display.setCursor(0, 0);
+        // will be replaced with duckutils method when PR is merged.
+        display.printf("sduid: %s\n",replaceNonPrintableWithHex(packet.sduid).c_str());
+        display.printf("dduid: %s\n",replaceNonPrintableWithHex(packet.dduid).c_str());
+        display.printf("muid: %s\n",replaceNonPrintableWithHex(packet.muid).c_str());
+        display.printf("topic: %s\n",str.c_str());
+        display.printf("duck: %s\n",duckTypeToString(static_cast<DuckType>(packet.duckType)).c_str());
+        display.printf("timestamp: %d\n",packet.timeReceived);
+        display.display();
     }
     /**
      * @param none
