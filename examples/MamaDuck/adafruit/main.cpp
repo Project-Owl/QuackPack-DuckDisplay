@@ -37,10 +37,4 @@ void loop() {
     packet.timeReceived = 1234567890;
     driver.printPacketHeader(packet);
 
-    std::cout << AdafruitDisplay::replaceNonPrintableWithHex(packet.dduid) << std::endl;
-    std::cout << AdafruitDisplay::replaceNonPrintableWithHex(packet.sduid) << std::endl;
-    std::cout << AdafruitDisplay::replaceNonPrintableWithHex(packet.muid) << std::endl;
-    std::cout << AdafruitDisplay::replaceNonPrintableWithHex(packet.dduid) << std::endl;
-    driver.display.display();
-
 }
