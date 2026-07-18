@@ -116,7 +116,7 @@ public:
         display.printf("muid: %s\n",replaceNonPrintableWithHex(packet.muid).c_str());
         display.printf("topic: %s\n",str.c_str());
         display.printf("duck: %s\n",duckTypeToString(static_cast<DuckType>(packet.duckType)).c_str());
-        display.printf("timestamp: %d\n",packet.timeReceived);
+        display.printf("timestamp: %ld\n",packet.timeReceived);
         display.display();
     }
     /**
