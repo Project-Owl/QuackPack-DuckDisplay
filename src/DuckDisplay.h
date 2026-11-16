@@ -80,6 +80,14 @@
 #define DUCKDISPLAY_VEXT_SETTLE_MS 100
 #endif
 
+// I2C clock for hardware-I2C displays, in Hz. U8g2 sets Wire to this clock
+// before every transfer, so it applies to the whole bus, including other
+// devices on it such as the T-Beam's PMU. 0: U8g2's value for the controller
+// (400 kHz for the SSD1306 and SH1106).
+#ifndef DUCKDISPLAY_I2C_BUS_CLOCK
+#define DUCKDISPLAY_I2C_BUS_CLOCK 0
+#endif
+
 // ---------------------------------------------------------------------------
 // The board's OLED, for the default constructor.
 //

@@ -163,6 +163,13 @@ bool DuckDisplay::begin() {
         delay(DUCKDISPLAY_VEXT_SETTLE_MS);
     }
 
+    // Before begin(): U8g2 only picks its default clock when none is set.
+    if (DUCKDISPLAY_I2C_BUS_CLOCK > 0) {
+        oled_->setBusClock(DUCKDISPLAY_I2C_BUS_CLOCK);
+    }
+    // With a hardware-I2C driver, begin() calls Wire.begin(data, clock). If the
+    // sketch already started Wire (for example on GPIO21/22 for the T-Beam's
+    // PMU), that call changes nothing and the display shares the bus.
     if (!oled_->begin()) {
         logerr_ln("[DISPLAY] U8g2 begin() failed");
         return false;
