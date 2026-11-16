@@ -1,0 +1,45 @@
+# Builds every example environment in platformio.ini with PlatformIO against
+# the pinned CDP 5.5, so a change that breaks the library or an example fails
+# before it is tagged.
+name: Build examples
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build (${{ matrix.env }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        env:
+          - lilygo_t_beam_sx1262
+          - lilygo_t_beam_sx1262_deep_sleep
+          - heltec_wifi_lora_32_V3
+          - heltec_wifi_lora_32_V2
+          - custom_driver_lilygo_t_beam_sx1262
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Cache PlatformIO
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.platformio/.cache
+            ~/.platformio/packages
+            ~/.platformio/platforms
+          key: pio-${{ runner.os }}-${{ hashFiles('platformio.ini', 'library.json') }}
+
+      - name: Install PlatformIO
+        # Same PlatformIO Core as the DMS builder image
+        run: pip install platformio==6.1.19
+
+      - name: Build the example
+        run: pio run -e ${{ matrix.env }}
