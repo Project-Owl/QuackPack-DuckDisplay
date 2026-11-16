@@ -1,7 +1,7 @@
 {
   "name": "QuackPack-DuckDisplay",
-  "version": "1.0.0",
-  "description": "Display utility library for ClusterDuck Protocol",
+  "version": "1.1.0",
+  "description": "OLED display QuackPack for ClusterDuck Protocol ducks: shows the duck's ID and status and the last packet it received or sent, with U8g2 and without blocking the duck's loop",
   "keywords": [
     "iot",
     "lora",
@@ -12,7 +12,11 @@
     "emergency-network",
     "platformio",
     "esp32",
-    "display"
+    "display",
+    "oled",
+    "ssd1306",
+    "sh1106",
+    "u8g2"
   ],
   "repository": {
     "type": "git",
@@ -29,31 +33,9 @@
   "homepage": "https://clusterduckprotocol.org",
   "frameworks": "arduino",
   "platforms": "espressif32",
-  "dependencies": [
-    {
-      "name": "ClusterDuck-Protocol",
-      "version": "https://github.com/BrentonPoke/ClusterDuck-Protocol.git"
-    },
-    { "name":"QuackPack-Base",
-      "version": "https://github.com/Project-Owl/QuackPack-Base.git"
-    },
-    {
-      "name": "Adafruit SSD1306",
-      "version": "^2.5.7"
-    },
-    {
-      "name": "Adafruit GFX Library",
-      "version": "^1.12.4"
-    },
-    {
-      "name": "Adafruit BusIO",
-      "version": "^1.17.4"
-    },
-    {
-      "name": "U8g2",
-        "version": "^2.36.17"
-    }
-  ],
+  "dependencies": {
+    "olikraus/U8g2": "^2.36.18"
+  },
   "export": {
     "include": [
       "src",
@@ -65,4 +47,3 @@
     ]
   }
 }
-
