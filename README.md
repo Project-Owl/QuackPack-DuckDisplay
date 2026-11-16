@@ -42,7 +42,10 @@ Any other display that U8g2 drives (SSD1306, SH1106, SSD1309, ST7567 and [many m
 ### Wiring and board notes
 
 - **LilyGO T-Beam**: the OLED is optional, so CDP only defines its pins when the firmware is built with `-D ENABLE_DISPLAY`. Fit a 0.96" SSD1306 I2C module to the OLED header: VCC to 3.3 V, GND, SDA to GPIO21, SCL to GPIO22. Without `ENABLE_DISPLAY`, `begin()` logs a warning and returns false.
-- **Boards with the OLED on GPIO21/22** (T-Beam): the AXP192/AXP2101 PMU is on the same pins, and XPowersLib (used by QuackPack-DuckGPS and QuackPack-DuckSleep) talks to it through `Wire`. U8g2's software I2C would take the pins away from `Wire`, so on these boards DuckDisplay uses hardware I2C (`Wire`, 400 kHz) instead of CDP's software-I2C class. Display and PMU share the bus, in either start-up order.
+- **Boards with the OLED on GPIO21/22** (T-Beam): the AXP192/AXP2101 PMU is on the same pins, and XPowersLib (used by QuackPack-DuckGPS and QuackPack-DuckSleep) talks to it through `Wire`. U8g2's software I2C would take the pins away from `Wire`, so on these boards DuckDisplay uses hardware I2C (`Wire`) instead of CDP's software-I2C class. Display and PMU share the bus, in either start-up order:
+  - If the sketch already started `Wire` on GPIO21/22, `begin()` joins it. U8g2 calls `Wire.begin(21, 22)`, which does nothing on a running bus. `begin()` never uses other pins.
+  - U8g2 sets the bus clock to 400 kHz before every transfer. If another device on the bus needs a slower clock, build with `-D DUCKDISPLAY_I2C_BUS_CLOCK=100000`.
+  - [examples/MamaDuck](examples/MamaDuck) starts `Wire` and the AXP2101 first and shows the battery on the status line.
 - **Heltec V2 and V3**: the OLED is powered from the Vext rail. `begin()` switches Vext on (GPIO21 on V2, GPIO36 on V3, active low) and waits 100 ms.
 - **External modules**: VCC to 3.3 V, GND, SDA and SCL to the pins you pass to the U8g2 constructor. Most SSD1306/SH1106 modules answer at I2C address 0x3C; for 0x3D, call `oled.setI2CAddress(0x3D * 2)` before `begin()`.
 
@@ -187,7 +190,7 @@ Before the first packet, the third line reads "No packets yet". Smaller displays
 
 ### Deep sleep
 
-Call `display.sleep()` before `esp_deep_sleep_start()`. With QuackPack-DuckSleep, register it as a power gate:
+Call `display.sleep()` before `esp_deep_sleep_start()`, after `duck.prepareForSleep()`. [examples/MamaDuck](examples/MamaDuck) does this when built with `-D ENABLE_DEEP_SLEEP=1`. With QuackPack-DuckSleep, register it as a power gate instead:
 
 ```cpp
 duckSleep::addPowerGate([](bool on) {
@@ -208,6 +211,7 @@ Set these with `-D` in `build_flags`.
 | `DUCKDISPLAY_OLED_RESET` | `CDPCFG_PIN_OLED_RESET`, else none | Reset pin of the board's OLED. |
 | `DUCKDISPLAY_PIN_VEXT` | `CDPCFG_PIN_VEXT`; 36 on Heltec V3; else -1 | Pin `begin()` drives low to power the OLED. -1: none. |
 | `DUCKDISPLAY_VEXT_SETTLE_MS` | 100 | Wait after switching Vext on. |
+| `DUCKDISPLAY_I2C_BUS_CLOCK` | 0 (U8g2's value: 400 kHz) | Clock for hardware-I2C displays, in Hz. It applies to the whole `Wire` bus. |
 | `DUCKDISPLAY_REFRESH_MS` | 250 | Shortest time between two frames. |
 | `DUCKDISPLAY_TILE_ROWS_PER_UPDATE` | 1 | Rows of tiles `update()` sends per call. |
 | `DUCKDISPLAY_PREVIEW_LEN` | 40 | Characters of payload kept in `PacketInfo::preview`. |
@@ -239,7 +243,8 @@ pio device monitor
 
 | Environment | Example | Board |
 |-------------|---------|-------|
-| `lilygo_t_beam_sx1262` | [MamaDuck](examples/MamaDuck) | `ttgo-t-beam`, `-D ENABLE_DISPLAY` |
+| `lilygo_t_beam_sx1262` | [MamaDuck](examples/MamaDuck) | `ttgo-t-beam`, `-D ENABLE_DISPLAY`, battery from the AXP2101 (XPowersLib) |
+| `lilygo_t_beam_sx1262_deep_sleep` | [MamaDuck](examples/MamaDuck) | the same, with `-D ENABLE_DEEP_SLEEP=1` |
 | `heltec_wifi_lora_32_V3` | [MamaDuck](examples/MamaDuck) | `heltec_wifi_lora_32_V3` |
 | `heltec_wifi_lora_32_V2` | [MamaDuck](examples/MamaDuck) | `heltec_wifi_lora_32_V2` |
 | `custom_driver_lilygo_t_beam_sx1262` | [CustomDriver](examples/CustomDriver) | `ttgo-t-beam`, external SH1106 |
@@ -268,7 +273,8 @@ Contributions are welcome. Open an [issue](https://github.com/Project-Owl/QuackP
 - Default display from the CDP board header; hardware I2C on boards that share GPIO21/22 with a PMU; Vext switched on for Heltec boards.
 - Built against CDP 5.5 (`onReceiveDuckData()`, `CdpPacket::receivedSignal`, `Duid`, `duckutils`).
 - No CDP or QuackPack-Base dependency in `library.json`; `library.properties` added.
-- Examples and CI build for the LilyGO T-Beam and Heltec V2 and V3.
+- `DUCKDISPLAY_I2C_BUS_CLOCK` sets the clock of a shared `Wire` bus.
+- The MamaDuck example shares the T-Beam's I2C bus with the AXP2101 (battery on the status line) and has optional deep sleep. Examples and CI build for the LilyGO T-Beam and Heltec V2 and V3.
 
 ### 1.0.0
 

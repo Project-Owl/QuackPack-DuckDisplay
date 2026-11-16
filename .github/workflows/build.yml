@@ -17,6 +17,7 @@ jobs:
       matrix:
         env:
           - lilygo_t_beam_sx1262
+          - lilygo_t_beam_sx1262_deep_sleep
           - heltec_wifi_lora_32_V3
           - heltec_wifi_lora_32_V2
           - custom_driver_lilygo_t_beam_sx1262
